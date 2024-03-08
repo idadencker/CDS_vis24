@@ -1,4 +1,4 @@
-import Argparse     # Required to use the argparse module
+import argparse     # Required to use the argparse module
 from wordcount import read_file, word_count, print_counts
 
 
@@ -9,7 +9,9 @@ def get_program_args():
     parser = argparse.ArgumentParser()
 
     # Define the input file name argument
-    parser.add_argument(
+    parser.add_argument("--input", #long form name
+                        "-i",#short form name 
+                        required= True,
             help="The input text file")
 
     # Define the optional punctuation argument
@@ -17,7 +19,7 @@ def get_program_args():
             "-p",
             "--punctuation",
             default=",.?",      # Default value to use when argument is not supplied
-            required=True,
+            required=False,
             help="Punctuation to ignore when counting words.")
 
     # Optional boolean argument indicating whether to ignore word case
@@ -25,7 +27,7 @@ def get_program_args():
     # argument variable if the argument is present, and False otherwise.
     parser.add_argument(
             "-c",
-            "--case-sensitive",
+            "--casesensitive",
             action="store_true",  # This action tells argparse to store True when the flag is specified.
             help="Force a case-sensitive count. By default, case is ignored.")
 
@@ -42,19 +44,27 @@ def get_program_args():
             "-m",
             "--min-count",
             default=2,
+            type=int,
             help="The minimum word count threshold for display.")
 
     # parse_args first checks for errors, and if there are none, it returns
     # a Namespace object containing your named arguments. argument names
     # correspond to the long-form argument names.
-    return parser.parse_args()
+    args = parser.parse_args()
+    return args
+    
+
+
+
+def main():
+        args= get_program_args()
+        counts = word_count(
+            read_file(args.input),
+            characters_to_ignore=args.punctuation,
+            case_sensitive=args.casesensitive)
+            
+        print_counts(counts, min_count=args.min_count)
 
 
 if __name__ == "__main__":
-
-    counts = word_count(
-            read_file(args.file),
-            characters_to_ignore=args.punctuation,
-            case_sensitive=args.case-sensitive)
-
-    print_counts(counts, min_count=args.min_count)
+        main()

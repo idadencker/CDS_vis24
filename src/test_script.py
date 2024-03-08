@@ -11,6 +11,10 @@ def file_loader():
     args = parser.parse_args()
     return args
 
+def process(filename):
+    data= np.loadtxt(filename, delimiter=",")
+    print(data)
+
 def main():
     args= file_loader() #execute fileloader funcction and put in args
     filename = os.path.join("..",
@@ -21,8 +25,7 @@ def main():
                             "data",
                             "sample-data",
                             args.input) #my main function define argument parser, will take in the input from the user in cmd line 
-
-    data= np.loadtxt(filename, delimiter=",")
+    process(filename)
 
     print(data)
 
