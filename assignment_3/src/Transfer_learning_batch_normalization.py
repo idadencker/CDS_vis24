@@ -181,7 +181,7 @@ def main():
                         "Tobacco3482")
     X, y = load_images(folder_path)
     X_train, X_test, y_train, y_test = prepare_data(X,y)
-    model = define_model(X_train, y_train)
+    model = define_model()
     H= compile_fit_model(model, args.optimizer, X_train, y_train)
     evaluate_model(X_test, y_test, model, H, args.optimizer)
 

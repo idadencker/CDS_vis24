@@ -198,6 +198,7 @@ def main():
     X_train, X_test, y_train, y_test = prepare_data(X,y)
     model = define_model()
     model = compile_model(model, args.optimizer)
+    datagen= data_generator()
 
     H= fit_model(model, datagen, X_train, y_train)
     evaluate_model(X_test, y_test, model, H, args.optimizer)
