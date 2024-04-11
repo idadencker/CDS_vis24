@@ -1,5 +1,5 @@
-tenserflow 
-pillow 
+tensorflow 
+argparse
 scikit-learn
 numpy
 matplotlib
