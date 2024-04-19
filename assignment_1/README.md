@@ -39,3 +39,7 @@ Your code should include functions that you have written wherever possible. Try 
 For this assignment, you are welcome to submit your code either as a Jupyter Notebook, or as ```.py``` script. If you do not know how to write ```.py``` scripts, don't worry - we're working towards that!
 
 Lastly, you are welcome to edit this README file to contain whatever information you like. Remember - documentation is important!
+
+
+## Summary 
+discuss the 2 scripts 
