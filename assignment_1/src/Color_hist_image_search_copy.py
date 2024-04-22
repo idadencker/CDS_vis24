@@ -4,11 +4,13 @@ import glob
 sys.path.append("..")
 import cv2 
 import numpy as np
+import matplotlib.pyplot as plt
 from utilss.imutils import jimshow as show
 from utilss.imutils import jimshow_channel as show_channel
 import matplotlib.pyplot as plt
 import pandas as pd
 import shutil
+from pandas import DataFrame
 
 
 def calculate_target_image(filepath_target):
@@ -80,6 +82,32 @@ def save_distances(distances_all):
 
 
 
+
+
+def plot_images(distances_all, filepath_target, filepath_all):
+    fig, axs = plt.subplots(1, 6, figsize=(15, 15))
+
+    #get the 5 closest to target
+    closest_images_filenames = distances_all.nsmallest(6, ["Distance"])["Filename"].tolist()
+    
+    # Plot the target image and the 5 closest images
+    images_to_plot = [filepath_target] + [os.path.join(filepath_all, filename + ".jpg") for filename in closest_images_filenames[1:]]
+    
+    for i, image_path in enumerate(images_to_plot):
+        image = cv2.imread(image_path)
+        #axs[i].imshow(image)
+        #show(image)
+    
+    plt.tight_layout()
+    plt.savefig(f"out/plot_{i}")
+    plt.show()
+
+
+
+
+
+
+
 def main():
     filepath_target = os.path.join("..",
                             "..",
@@ -100,22 +128,11 @@ def main():
 
     
     save_distances(distances_all)
-
-    # Get the filenames of the 5 closest images
-    closest_images_filenames = distances_all.nsmallest(6, ["Distance"])["Filename"].tolist()
+    plot_images(distances_all, filepath_target, filepath_all)
     
-    # Plot the target image and the 5 closest images
-    images_to_plot = [filepath_target] + [os.path.join(filepath_all, filename + ".jpg") for filename in closest_images_filenames[1:]]
-    for image_path in images_to_plot:
-        image = cv2.imread(image_path)
-        show(image)
-    
-    #Verti = np.concatenate((img1, img2), axis=0) 
 
-        # Save the plotted image to the "out" directory
-        #filename = os.path.basename(image_path)
-        #out_path = os.path.join("out", filename)
-        #shutil.copyfile(image_path, out_path)
+    
+
 
 
 
