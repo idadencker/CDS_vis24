@@ -1,5 +1,7 @@
-facenet_pytorch 
-torch
-PIL
+torch 
+Pillow
+facenet-pytorch
 pandas
 matplotlib
+seaborn
+tqdm
