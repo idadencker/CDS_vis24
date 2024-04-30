@@ -1,45 +1,37 @@
 # Building a simple image search algorithm
 
-For this assignment, you'll be using ```OpenCV``` to design a simple image search algorithm.
 
-The dataset is a collection of over 1000 images of flowers, sampled from 17 different species. The dataset comes from the Visual Geometry Group at the University of Oxford, and full details of the data can be found [here](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/).
-
-For this exercise, you should write some code which does the following:
-
-- Define a particular image that you want to work with
-- For that image
-  - Extract the colour histogram using ```OpenCV```
-- Extract colour histograms for all of the **other* images in the data
-- Compare the histogram of our chosen image to all of the other histograms 
-  - For this, use the ```cv2.compareHist()``` function with the ```cv2.HISTCMP_CHISQR``` metric
-- Find the five images which are most simlar to the target image
-  - Save a CSV file to the folder called ```out```, showing the five most similar images and the distance metric:
-
-|Filename|Distance]
-|---|---|
-|target|0.0|
-|filename1|---|
-|filename2|---|
-
-## Objective
-
-This assignment is designed to test that you can:
-
-1. Work with larger datasets of images
-2. Extract structured information from image data using ```OpenCV```
-3. Quantaitively compare images based on these features, performing *distant viewing*
-
-## Some notes
-- You'll need to first ```unzip``` the flowers before you can use the data!
-
-## Additional comments
-
-Your code should include functions that you have written wherever possible. Try to break your code down into smaller self-contained parts, rather than having it as one long set of instructions.
-
-For this assignment, you are welcome to submit your code either as a Jupyter Notebook, or as ```.py``` script. If you do not know how to write ```.py``` scripts, don't worry - we're working towards that!
-
-Lastly, you are welcome to edit this README file to contain whatever information you like. Remember - documentation is important!
+## Introduction
+This program contains a script that will load images of scanned 
 
 
-## Summary 
-discuss the 2 scripts 
+papers from 3 different swiss newspapers to investigate the presence of human faces over the years of publication. Old newspapers are largely dominated by plain text and few illustrations, however with the advansing technology of personal cameraes that took place in 20th centary, more faces appeared in the newspapers. This program will use a pre-trained CNN model finetuned for face detection. Documentation for the model can be found [here](https://medium.com/%2540danushidk507/facenet-pytorch-pretrained-pytorch-face-detection-mtcnn-and-facial-recognition-b20af8771144). The results are grouped by decade and 1 csv for each newspaper is saved, showing per decade: the total count of faces and the percentage of pages that have at least 1 face on them. A plot is saved showing the latter for all 3 newspapers. The results are summarised and discussed.
+
+
+## Data 
+The dataset consists of ... The dataset can be found and downloaded [here](https://zenodo.org/records/3706863). 
+
+
+## Repository overview 
+The repository consists of:
+- 1 README.md file
+- 2 bash scripts
+- 1 requirenments file
+- in folder for storing input data
+- out folder for holding the saved results
+- src folder containing the script for counting faces and a utils folder
+
+
+## Reproducibility 
+To make the program work do the following:
+
+1) download the dataset and place it in the 'in' folder. Unzip it so data becomes accessible 
+2) in the .py script change folderpath to where your data is located 
+3) in a terminal start by running the following code (make sure your directory is set to where setup.sh is located):
+    $ source setup.sh
+4) run
+    $ python run.sh
+... will be saved the the out folder 
+
+
+## Summary and discussion
