@@ -83,26 +83,14 @@ def plot(distances_all, filepath_target, filepath_all):
         ax.set_title(f'Distance: {distance}', fontsize=10)
 
     plt.tight_layout()
-    plt.savefig("out/flowers_color_hist")
+    plt.savefig("out/flowers_color_hist") 
 
 
 
 def main():
-    filepath_target = os.path.join("..",
-                            "..",
-                            "..",
-                            "..",
-                            "cds-vis-data",
-                            "flowers", 
-                            "image_0001.jpg")
+    filepath_target = os.path.join("in", "image_0001.jpg")
     norm_hist_f1 = calculate_target_image(filepath_target)
-    filepath_all = os.path.join("..",
-                                "..",
-                                "..",
-                                "..",
-                                "cds-vis-data",
-                                "flowers")
-
+    filepath_all = os.path.join("in")
     distances_all = loop_through_files(filepath_all, norm_hist_f1)
     save_distances(distances_all)
     plot(distances_all, filepath_target, filepath_all)

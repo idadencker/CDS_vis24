@@ -28,20 +28,19 @@ To make the program work do the following:
 ```python
 $ git clone "URL HERE"
 ```
-1) download the dataset and place all the images in the 'in' folder
-2) in the .py scripts change filepath_all to where your data is located 
-4) If you wish to change the target image: 
+2) download the dataset and place all the images in the 'in' folder
+3) If you wish to change the target image: 
 - in 'Color_hist_image_search.py' change 'filepath_target' to the filepath of the desired target image
 - in 'VGG16_image_search.py' change the 0 in line 81: 'distances, indices = neighbors.kneighbors([feature_list[0]])' to any number between 0 and 1359, note that 0 refers to the first image 'image_0001', 1 refers to the second image 'image_0002' etc. 
-5) In a terminal set your directory:
+4) In a terminal set your directory:
 ```python
 $ cd assignment_1
 ```
-6) To create a virtual environment run:
+5) To create a virtual environment run:
 ```python
 $ source setup.sh
 ```
-7) To run the 2 scripts and save results run: 
+6) To run the 2 scripts and save results run: 
 ```python
 $ source run.sh
 ```

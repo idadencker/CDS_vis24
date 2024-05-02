@@ -57,11 +57,11 @@ def extract_features(img_path, model):
 
 
 
-def loop_through_files(root_dir, model):
+def loop_through_files(filepath_all, model):
     '''
     Get filenames for the images and empty list that will hold features 
     '''                        
-    filenames = [root_dir + "/" + name for name in sorted(os.listdir(root_dir))]
+    filenames = [filepath_all + "/" + name for name in sorted(os.listdir(filepath_all))]
     feature_list = []
 
     '''
@@ -118,10 +118,10 @@ def save_distances(distances,indices):
 
 
 
-def plot(df, filepath_target, root_dir):
+def plot(df, filepath_target, filepath_all):
     closest_images_filenames = df["Filename"].tolist()
 
-    images_to_plot = [filepath_target] + [os.path.join(root_dir, filename + ".jpg") for filename in closest_images_filenames[1:]]
+    images_to_plot = [filepath_target] + [os.path.join(filepath_all, filename + ".jpg") for filename in closest_images_filenames[1:]]
 
     fig, axs = plt.subplots(2, 3, figsize=(15, 15))
     fig.suptitle("Distances using VGG16", fontsize=20)
@@ -152,15 +152,15 @@ def main():
                         "flowers", 
                         "image_0001.jpg")
     model = define_model()
-    root_dir = os.path.join("..",
+    filepath_all = os.path.join("..", 
                             "..",
                             "..",
                             "..",
                             "cds-vis-data",
                             "flowers", )
-    distances, indices = loop_through_files(root_dir, model)
+    distances, indices = loop_through_files(filepath_all, model)
     df = save_distances(distances,indices)
-    plot(df, filepath_target, root_dir)
+    plot(df, filepath_target, filepath_all)
 
 
 
