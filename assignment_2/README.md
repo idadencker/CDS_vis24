@@ -1,41 +1,52 @@
-# Building a simple image search algorithm
+# Image classification
 
-For this assignment, you'll be using ```OpenCV``` to design a simple image search algorithm.
 
-The dataset is a collection of over 1000 images of flowers, sampled from 17 different species. The dataset comes from the Visual Geometry Group at the University of Oxford, and full details of the data can be found [here](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/).
+## Introduction
+This program contains scripts that will load, preprocess and classify the multiclass cifar10 dataset. One script implements a logistic regression classifier, including hyperparameter tuning of defined hyperparameters to determine the model with the greatest accuracy. The other script implements an architecturally more complex model, a multilayer perceptron (MLP) model. MLP is a feedforward artificial neural network, consisting of fully connected neurons, capable of learning complex patterns and relationships within data. 
+Model performance of both models are evaluated and scoring metrics are summerised in the saved classification report alongside with a loss curve plot for the MLP model.
+The results from both methods are summarized and discussed.
 
-For this exercise, you should write some code which does the following:
 
-- Define a particular image that you want to work with
-- For that image
-  - Extract the colour histogram using ```OpenCV```
-- Extract colour histograms for all of the **other* images in the data
-- Compare the histogram of our chosen image to all of the other histograms 
-  - For this, use the ```cv2.compareHist()``` function with the ```cv2.HISTCMP_CHISQR``` metric
-- Find the five images which are most simlar to the target image
-  - Save a CSV file to the folder called ```out```, showing the five most similar images and the distance metric:
+## Data 
+The data used for classification is the CIFAR-10 dataset which consist of 6000 32x32 colour images for 10 different classes, totalling 60.000 images. The dataset can be loaded using the cifar10.load_data function, and will produce a train/test split of 50.000 training images and 10.000 test images. More details on the data are available [here](https://www.cs.toronto.edu/~kriz/cifar.html)
 
-|Filename|Distance]
-|---|---|
-|target|0.0|
-|filename1|---|
-|filename2|---|
 
-## Objective
+## Repository overview 
+The repository consists of:
+- 1 README.md file
+- 2 bash scripts
+- 1 requirenments file
+- out folder for holding the saved results
+- src folder containing the 2 scripts for conduction image classification 
 
-This assignment is designed to test that you can:
 
-1. Work with larger datasets of images
-2. Extract structured information from image data using ```OpenCV```
-3. Quantaitively compare images based on these features, performing *distant viewing*
+## Reproducibility 
+To make the program work do the following:
 
-## Some notes
-- You'll need to first ```unzip``` the flowers before you can use the data!
+1) clone the repository 
+```python
+$ git clone "URL HERE"
+```
+2) In a terminal set your directory:
+```python
+$ cd assignment_2
+```
+3) To create a virtual environment run:
+```python
+$ source setup.sh
+```
+4) To run the 2 scripts and save results run: 
+```python
+$ source run.sh
+```
+2 classification reports and a loss curve plot for the MLP model will be saved the the out folder 
 
-## Additional comments
+Please note that the scripts may take some time to execute. You can track information on hyperparameter tuning for logistic regression and the iterations for the MLP model in the terminal output.
 
-Your code should include functions that you have written wherever possible. Try to break your code down into smaller self-contained parts, rather than having it as one long set of instructions.
 
-For this assignment, you are welcome to submit your code either as a Jupyter Notebook, or as ```.py``` script. If you do not know how to write ```.py``` scripts, don't worry - we're working towards that!
 
-Lastly, you are welcome to edit this README file to contain whatever information you like. Remember - documentation is important!
+## Summary and discussion
+From looking at the classification...
+
+for MLP: a logistic activation is applied
+number of hidden layers is set to 100 to account for the fact that the dataset contains labels of 10 different classes. When inspecting the loss curve.. 
