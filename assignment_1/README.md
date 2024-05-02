@@ -18,7 +18,7 @@ The repository consists of:
 - 1 requirenments file
 - in folder for storing input data
 - out folder for holding the saved results
-- src folder containing the 2 scripts for conduction image search 
+- src folder containing the 2 scripts for implementing image search 
 
 
 ## Reproducibility 
@@ -48,4 +48,6 @@ $ source run.sh
 
 
 ## Summary and discussion
-When comparing the two approaches for conducting an image search to determine the most similar images, very different results are displayed. For the same target image 'image_0001', the two approaches do not agree on a single image. None of the five different images determined by the VGG16 application are present in the images for the color histogram application. From visually inspecting the two plots, it's evident that the VGG16 application has arrived at the most resembling images, and hence is the most accurate model. Color histograms only capture color distribution without considering important components like semantics, and hence a lot of information and detail is lost. Images are deemed similar if the distribution of colors across the image assembles, though the images might represent completely different scenes and semantics. However, the highly complex CNN model VGG16 is capable of performing high-level reasoning and can, due to its architecture, capture edges, textures, and shapes, and thus more complex and abstract features. Based on the findings, it can be concluded that the VGG16 application does the most accurate job in finding the five most visually similar images. These results are, however, solely based on an analysis of a single image, though the general pattern will most likely still apply if other images are analyzed.
+When comparing the two approaches for conducting an image search to determine the most similar images, very different results are displayed. For the same target image 'image_0001', the two approaches do not agree on a single image. None of the five different images determined by the VGG16 application are present in the images for the color histogram application. From visually inspecting the two plots, it's evident that the VGG16 application has arrived at the most resembling images, and hence is the most accurate model. 
+Color histograms only capture color distribution without considering important components like semantics, and hence a lot of information and detail is lost. Images are deemed similar if the distribution of colors across the image assembles, though the images might represent completely different scenes and semantics. However, the highly complex CNN model VGG16 is capable of performing high-level reasoning and can, due to its architecture, capture edges, textures, and shapes, and thus more complex and abstract features. 
+Based on the findings, it can be concluded that the VGG16 application does the most accurate job in finding the five most visually similar images. These results are, however, solely based on an analysis of a single image, though the general pattern will most likely still apply if other images are analyzed.
