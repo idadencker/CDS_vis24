@@ -2,7 +2,7 @@ import sklearn
 import argparse
 import tensorflow as tf
 import matplotlib
-import os 
+import os
 from PIL import UnidentifiedImageError
 from tensorflow.keras.preprocessing.image import (load_img, img_to_array, ImageDataGenerator)
 from tensorflow.keras.applications.vgg16 import (preprocess_input, decode_predictions, VGG16)
@@ -89,9 +89,12 @@ def define_model():
     for layer in model.layers:
         layer.trainable = False
 
-    flat1 = Flatten()(model.layers[-1].output)  
-    class1 = Dense(128, activation = 'relu')(flat1)
-    output = Dense(10, activation = 'softmax')(class1)
+    flat1 = Flatten()(model.layers[-1].output)
+    bn = BatchNormalization()(flat1)
+    class1 = Dense(128, 
+                activation='relu')(bn)
+    output = Dense(10, 
+                activation='softmax')(class1)
 
     model = Model(inputs = model.inputs, 
                 outputs = output)
@@ -160,26 +163,20 @@ def evaluate_model(X_test, y_test, model, H, optimizer):
                                 predictions.argmax(axis=1),
                                 target_names=label_names))
 
-    filepath_metrics = open(f'out/VGG16_metrics_no_BN_{optimizer}.txt', 'w')
+    filepath_metrics = open(f'out/VGG16_metrics_BN_{optimizer}.txt', 'w')
     filepath_metrics.write(classifier_metrics)
     filepath_metrics.close()
-    plot_history(H, 10, f"out/VGG16_losscurve_no_BN_{optimizer}.png" )
+    plot_history(H, 10, f"out/VGG16_losscurve_BN_{optimizer}.png" )
 
 
 
 def main():
     args = get_arguments()
-    folder_path = os.path.join(
-                        "..",
-                        "..",
-                        "..",
-                        "..",
-                        "cds-vis-data",
-                        "Tobacco3482")
+    folder_path = os.path.join("in", "Tobacco3482-jpg")
     X, y = load_images(folder_path)
     X_train, X_test, y_train, y_test = prepare_data(X,y)
     model = define_model()
-    H = compile_fit_model(model, args.optimizer, X_train, y_train)
+    H= compile_fit_model(model, args.optimizer, X_train, y_train)
     evaluate_model(X_test, y_test, model, H, args.optimizer)
 
 

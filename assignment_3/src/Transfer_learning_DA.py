@@ -102,9 +102,9 @@ def define_model():
     return model
 
 
-def compile_fit_model(model, optimizer, X_train, y_train):
+def compile_model(model, optimizer):
     '''
-    Compile and train the model
+    Compile the model
     '''
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
         initial_learning_rate = 0.01,
@@ -117,15 +117,30 @@ def compile_fit_model(model, optimizer, X_train, y_train):
     model.compile(optimizer = optimizer,
                 loss = 'categorical_crossentropy',
                 metrics = ['accuracy'])
+    return model 
 
-    H = model.fit(X_train, y_train, 
-                validation_split=0.1,
-                batch_size=32,
-                epochs=10,
-                verbose=1)
+def data_generator():
+    '''
+    Doing data augmentation
+    '''
+    datagen = ImageDataGenerator(horizontal_flip = True, 
+                                rotation_range = 90,
+                                validation_split = 0.1)
+    return datagen
+
+
+def fit_model(model, datagen, X_train, y_train):
+    '''
+    Train the model
+    '''
+    datagen.fit(X_train)
+    H = model.fit(datagen.flow(X_train, y_train, batch_size = 32),
+                               validation_data = datagen.flow(X_train, y_train, 
+                                                              batch_size = 32,
+                                                              subset = "validation"),
+                                                              epochs = 10) 
+
     return H
-
-
 
 def plot_history(H, epochs, save_path):
     plt.figure(figsize=(12,6))
@@ -163,28 +178,24 @@ def evaluate_model(X_test, y_test, model, H, optimizer):
                                 predictions.argmax(axis=1),
                                 target_names=label_names))
 
-    filepath_metrics = open(f'out/VGG16_metrics_BN_{optimizer}.txt', 'w')
+    filepath_metrics = open(f'out/VGG16_metrics_DA_{optimizer}.txt', 'w')
     filepath_metrics.write(classifier_metrics)
     filepath_metrics.close()
-    plot_history(H, 10, f"out/VGG16_losscurve_BN_{optimizer}.png" )
+    plot_history(H, 10, f"out/VGG16_losscurve_DA_{optimizer}.png" )
 
 
 
 def main():
     args = get_arguments()
-    folder_path = os.path.join(
-                        "..",
-                        "..",
-                        "..",
-                        "..",
-                        "cds-vis-data",
-                        "Tobacco3482")
+    folder_path = os.path.join("in", "Tobacco3482-jpg")
     X, y = load_images(folder_path)
     X_train, X_test, y_train, y_test = prepare_data(X,y)
     model = define_model()
-    H= compile_fit_model(model, args.optimizer, X_train, y_train)
-    evaluate_model(X_test, y_test, model, H, args.optimizer)
+    model = compile_model(model, args.optimizer)
+    datagen= data_generator()
 
+    H= fit_model(model, datagen, X_train, y_train)
+    evaluate_model(X_test, y_test, model, H, args.optimizer)
 
 
 if __name__ == "__main__":
