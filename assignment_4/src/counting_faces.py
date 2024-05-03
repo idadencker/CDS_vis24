@@ -126,7 +126,7 @@ def plotting(final_df):
 
 
 def main():
-    folderpath = "../../../../cds-vis-data/newspapers/"
+    folderpath = "in/images/"
     loop_through_files(folderpath)
     final_df = merged_df()
     plotting(final_df)

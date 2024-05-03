@@ -22,12 +22,23 @@ The repository consists of:
 ## Reproducibility 
 To make the program work do the following:
 
-1) download the dataset and place it in the 'in' folder. Unzip it so data becomes accessible 
-2) in the .py script change folderpath to where your data is located 
-3) in a terminal start by running the following code (make sure your directory is set to where setup.sh is located):
-    $ source setup.sh
-4) run
-    $ python run.sh
+1) clone the repository 
+```python
+$ git clone "URL HERE"
+```
+2) download the images.zip file. Unzip it and place the images folder inclduding the 3 subfolders in the 'in' folder.
+3) In a terminal set your directory:
+```python
+$ cd assignment_4
+```
+4) To create a virtual environment run:
+```python
+$ source setup.sh
+```
+5) To run the script run:
+```python
+$ source run.sh 
+```
 A csv for each newspaper and 1 plot for visualising the findings will be saved the the out folder 
 
 
