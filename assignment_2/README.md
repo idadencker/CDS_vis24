@@ -4,7 +4,7 @@
 ## Introduction
 This program contains scripts that will load, preprocess and classify the multiclass cifar10 dataset. One script implements a logistic regression classifier, including hyperparameter tuning of defined hyperparameters to determine the model with the greatest accuracy. The other script implements an architecturally more complex model, a multilayer perceptron (MLP) model. MLP is a feedforward artificial neural network, consisting of fully connected neurons, capable of learning complex patterns and relationships within data. 
 Model performance of both models are evaluated and scoring metrics are summerised in the saved classification report alongside with a loss curve plot for the MLP model.
-The results from both methods are summarized and discussed.
+The results from both methods are summarized and discussed. 
 
 
 ## Data 
@@ -41,12 +41,11 @@ $ source run.sh
 ```
 2 classification reports and a loss curve plot for the MLP model will be saved the the out folder 
 
-Please note that the scripts may take some time to execute. You can track information on hyperparameter tuning for logistic regression and the iterations for the MLP model in the terminal output.
-
+Please note that the scripts may take some time to execute. You can track information on hyperparameter tuning for logistic regression model and the iterations for the MLP model in the terminal output.
 
 
 ## Summary and discussion
-From looking at the classification...
-
-for MLP: a logistic activation is applied
-number of hidden layers is set to 100 to account for the fact that the dataset contains labels of 10 different classes. When inspecting the loss curve.. 
+From looking at the classification reports, the MLP model emerges as the best-performing model, achieving an accuracy score of 39%, compared to the logistic regression model with 31% accuracy. Furthermore, it's evident that some categories are easier to recognize than others for both models. For example, the category 'cat' proves particularly difficult for both models. Although neither model achieves perfect performance, both exceed the chance level by 10%.
+An influence on the model's performance is the hyperparameters used for training. Grid search hyperparameter tuning was applied to the logistic regression model. As it's a multiclass model, 'sag', 'saga', and 'newton-cg' were chosen as possible solvers. Furthermore, 3 different regularization strengths and 2 different penalties were defined, resulting in 18 possible fits for the model. The best-performing model, optimized for accuracy, uses the saga solver, l1 penalty, and a regularization strength of 0.1.
+While adding more parameters for hyperparameter tuning could potentially improve performance, it comes at the cost of computational resources and time. However, it's questionable whether performance will substantially improve by complicating the hyperparameter tuning process.
+For the MLP model, a logistic sigmoid activation function for the hidden layer is applied to predict the probability as an output. The number of hidden layers is set to 100 to account for the dataset containing labels of 10 different classes. When inspecting the loss curve, the model reaches maximum performance after about 500 iterations. Similarly, hyperparameter tuning could be applied to the MLP model, but given that the baseline model with no hyperparameter tuning is already time-costly in execution, hyperparameter tuning is disregarded.
